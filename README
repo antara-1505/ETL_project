@@ -1,0 +1,50 @@
+# ETL Pipeline for Earthquake Data
+
+This is an ETL pipeline that extracts earthquake data from the USGS Earthquake API, transforms it into a usable format, and loads it into an AWS S3 bucket for further analysis. The pipeline is written in Python and leverages AWS S3 for data storage.
+
+## Project Structure
+ETL_Project/ ├── config.py ├── main_pipeline.py ├── scripts/ │ ├── extract.py │ ├── transform.py │ └── load.py └── README.md
+
+### `config.py`
+This file contains configuration variables such as the S3 bucket name and any other settings needed to run the pipeline.
+
+### `extract.py`
+This file is responsible for extracting earthquake data from the USGS Earthquake API using the `boto3` library. It fetches the raw data in JSON format.
+
+### `transform.py`
+The transformation script processes and cleans the data by removing unwanted newline characters, structuring it, and partitioning it based on the current date.
+
+### `load.py`
+This script loads the cleaned and transformed data into an AWS S3 bucket, storing it with a filename based on the current date.
+
+### `main_pipeline.py`
+This file coordinates the entire ETL process. It runs the extraction, transformation, and loading functions in sequence.
+
+---
+## Setup
+
+1. **Prerequisites**
+   - Python 3.x
+   - AWS account and `boto3` library installed
+   - Access to the USGS Earthquake API
+
+2. **Install Dependencies**
+   To install the required Python libraries, use:
+
+   ```bash
+   pip install boto3 requests
+3. Configure AWS Credentials Set up your AWS credentials for boto3 to access your S3 bucket. You can configure them by running:
+
+
+aws configure
+
+4.Update Configuration
+In the config.py file, update the following values:
+
+AWS_S3_BUCKET_NAME: Your S3 bucket name where the data will be stored.
+
+Running the Pipeline
+To run the ETL pipeline, execute the following command:
+
+
+python main_pipeline.py
